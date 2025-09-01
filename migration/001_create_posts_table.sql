@@ -1,0 +1,10 @@
+CREATE DATABASE board_db;
+USE board_db;
+
+CREATE TABLE posts (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    author VARCHAR(50),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
