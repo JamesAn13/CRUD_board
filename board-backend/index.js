@@ -36,10 +36,39 @@ app.post("/api/posts", (req, res) => {
 });
 
 //글 목록 조회 CRUD - READ, GET 요청
+// app.get("/api/posts", (req,res) => {
+//     db.query("SELECT * FROM posts ORDER BY createdAt DESC", (err, results) => {
+//         if (err) return res.status(500).json(err);
+//         res.json(results);
+//     });
+// });
+
+//페이징 처리 추가 - ?page=1&limit=10
+//page: 현재 페이지, limit: 페이지당 글 개수 ex) page=2, limit=10 -> 11~20번째 글 조회
+//offset = (page - 1) * limit => LIMIT : 가져올 글 개수, OFFSET : 건너뛸 글 개수
 app.get("/api/posts", (req,res) => {
-    db.query("SELECT * FROM posts ORDER BY createdAt DESC", (err, results) => {
+    const page = parseInt(req.query.page) || 1; //현재 페이지, 기본값 1
+    const limit = parseInt(req.query.limit) || 10; //페이지당 글 개수, 기본값 10
+    const offset = (page - 1) * limit; //건너뛸 글 개수
+
+    const postsQuery = "SELECT * FROM posts ORDER BY createdAt DESC LIMIT ? OFFSET ?";
+    const totalQuery = "SELECT COUNT(*) AS total FROM posts";
+
+    db.query(postsQuery, [limit, offset], (err,posts) => {
         if (err) return res.status(500).json(err);
-        res.json(results);
+
+        db.query(totalQuery, (err, totalResult) => {
+            if (err) return res.status(500).json(err);
+
+            const total = totalResult[0].total;
+
+            res.json({
+                posts: posts,
+                total: total,
+                page: page,
+                limit: limit
+            });
+        });
     });
 });
 
@@ -78,6 +107,60 @@ app.delete("/api/posts/:id", (req,res) => {
         });
 });
 
+//여기부터 댓글기능
+//댓글 가져오기 CRUD - READ, GET 요청
+app.get("/api/posts/:postId/comments" ,(req,res) => {
+    const { postId } = req.params;
+    db.query(
+        "SELECT * FROM comments WHERE  postId = ? ORDER BY createdAt DESC",
+        [postId],
+        (err, results) => {
+            if (err) return res.status(500).json(err);
+            res.json(results);
+        }
+    );
+});
+
+//댓글 작성 CRUD - CREATE, POST 요청
+app.post("/api/posts/:postId/comments" ,(req,res) => {
+    const { postId } = req.params;
+    const { author, content } = req.body;
+
+    //유효성 검사, 작성자와 내용이 비어있으면 400 에러 반환
+    if (!author || !content) {
+        return res.status(400).json({ message: "작성자와 내용을 입력해주세요."});
+    }
+
+    db.query(
+        "INSERT INTO comments (postId, author, content) VALUES ( ?, ?, ?)",
+        [postId, author, content],
+        (err, results) => {
+            if (err) return res.status(500).json(err);
+            //201 Created 상태 코드와 함께 생성된 댓글 정보 반환
+            //res.status(201).json({ id: results.insertId, postId, author, content }); //이것도 가능
+            res.status(201).json({
+                id: results.insertId,
+                postId: postId,
+                author: author,
+                content: content
+            });
+        }
+    );
+});
+
+//댓글 삭제 CRUD - DELETE, DELETE 요청
+app.delete("/api/posts/:postId/comments/:commentId", (req,res) => {
+    const { commentId } = req.params;
+    db.query(
+        "DELETE FROM comments WHERE id = ?",
+        [commentId],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "댓글이 삭제되었습니다."});
+        }
+    );
+});
+
 
 //서버 실행
-app.listen(4000, () => console.log("Server is runnig on http://localhost:4000"));
+app.listen(4000, () => console.log("Server is running on http://localhost:4000"));

@@ -1,128 +1,189 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* src/App.css */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.container {
+/* --- 기본 레이아웃 --- */
+.container, .post-detail {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .title {
   text-align: center;
-  color: #333;
+  color: #2c3e50;
   margin-bottom: 30px;
+  font-weight: 600;
 }
 
-.form {
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 40px 0;
+}
+
+/* --- 입력 폼 --- */
+.form, .comment-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
+  gap: 15px;
+  margin-bottom: 30px;
   padding: 20px;
+  background-color: #fdfdfd;
+  border: 1px solid #e9e9e9;
   border-radius: 8px;
 }
 
-.input {
+.comment-form h4 {
+  margin: 0;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.input, .textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  min-height: 100px;
-  box-sizing: border-box;
+  min-height: 120px;
+  resize: vertical;
 }
 
 .button {
-  padding: 10px 20px;
-  background-color: #007bff;
+  padding: 12px 20px;
+  background-color: #3498db;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: 500;
   transition: background-color 0.2s;
+  align-self: flex-end; /* 버튼을 오른쪽으로 정렬 */
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 
+/* --- 게시글 목록 --- */
 .post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-item {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.post-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.post-item strong {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-right: 10px;
+}
+
+.post-item span {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.post-item p {
+  margin-top: 10px;
+  color: #34495e;
+  line-height: 1.6;
+}
+
+.post-item a, .post-item button {
+  margin-top: 15px;
+  margin-right: 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.post-item button {
+  background: none;
+  border: 1px solid #ccc;
+  color: #555;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-item button:hover {
+  background-color: #f0f0f0;
+}
+
+/* --- 게시글 상세 --- */
+.post-detail h2 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.post-detail > p {
+  margin-bottom: 15px;
+}
+
+.post-content-detail {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #34495e;
+  min-height: 150px;
+}
+
+/* --- 댓글 --- */
+.comments-section h3, .comment-form h4 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.comment-list {
   list-style: none;
   padding: 0;
 }
 
-.post-item {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.comment-item {
+  padding: 15px;
+  border-top: 1px solid #f0f0f0;
 }
 
-.post-title {
-  font-size: 18px;
-  color: #333;
-  margin-right: 10px;
+.comment-item:first-child {
+  border-top: none;
 }
 
-.post-author {
-  color: #666;
-  font-size: 14px;
+.comment-item strong {
+  font-size: 15px;
+  color: #34495e;
 }
 
-.post-content {
-  margin-top: 10px;
-  color: #444;
-  line-height: 1.5;
+.comment-item p {
+  margin: 5px 0;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #95a5a6;
 }
