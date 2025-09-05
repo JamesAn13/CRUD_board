@@ -8,12 +8,28 @@ const apiClient = axios.create({
     baseURL: 'http://localhost:4000/api'
 });
 
+//요청 인터셉터 - 모든 API 요청이 보내지기 전에 이 코드가 먼저 실행
+apiClient.interceptors.request.use(config => {
+    //localstorage에 있는 토큰 가져와이
+    const token = localStorage.getItem('token');
+
+    //토큰 (O) -> 요청 헤더, Authorization에 토큰 추가
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+}, error => {
+    return Promise.reject(error);
+})
+
 //게시글 목록 조회 함수, GET /api/posts ex) getPosts().then(res => console.log(res.data));
-export const getPosts = ( page = 1, limit = 10) => {
+//검색어 기능 추가, page와 limit는 기본값 설정
+export const getPosts = ( page = 1, limit = 10, search = "") => {
     return apiClient.get('/posts', {
         params: {
             page: page,
-            limit: limit
+            limit: limit,
+            search: search //search 파라미터 추가
         }
     });
 };
@@ -52,3 +68,20 @@ export const createComment = (postId, commentData) => {
 export const deleteComment = (postId, comments) => {
     return apiClient.delete(`/posts/${postId}/comments/${comments}`);
 }
+
+//회원가입 함수, POST /api/register 
+export const register = async ( username, password) => {
+    return apiClient.post('/register', { username, password }); 
+};
+
+//로그인 함수, POST /api/login
+export const login = async ( username, password) => {
+    return apiClient.post('/login', { username, password });
+};
+
+//해당 사용자가 작성한 댓글 목록 가져오기, GET /api/my-comments
+export const getMyComments = () => {
+    return apiClient.get('/my-comments');
+}
+
+export default apiClient;

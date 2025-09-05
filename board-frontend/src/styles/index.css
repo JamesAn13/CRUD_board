@@ -1,0 +1,52 @@
+/* board-frontend/src/index.css */
+
+/* Google Fonts 'Noto Sans KR' 가져오기 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+  /* 색상 변수 정의 */
+  --primary-color: #3498db;
+  --primary-hover-color: #2980b9;
+  --text-color: #2c3e50;
+  --secondary-text-color: #7f8c8d;
+  --background-color: #f4f7f9;
+  --container-bg-color: #ffffff;
+  --border-color: #e0e0e0;
+  --error-color: #e74c3c;
+
+  /* 폰트 설정 */
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-hover-color);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit; /* 버튼에도 기본 폰트 적용 */
+}
+
+* {
+  box-sizing: border-box;
+}

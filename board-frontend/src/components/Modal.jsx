@@ -1,5 +1,5 @@
 import React from 'react';
-import './Modal.css';
+import '../styles/Modal.css';
 
 function Modal({ isOpen, onClose, onSave, post }) {
   const [editedPost, setEditedPost] = React.useState(post);
