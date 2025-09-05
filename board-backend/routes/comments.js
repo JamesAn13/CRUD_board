@@ -71,3 +71,5 @@ router.delete("/:commentId", authenticateToken, (req,res) => {
         );
     });    
 });
+
+export default router;
