@@ -5,6 +5,7 @@ import { getPostById, getComments, createComment, deleteComment, updatePost, del
 import '../styles/App.css';
 import { jwtDecode } from 'jwt-decode';
 import Modal from '../components/Modal'; //모달 추가(게시글 수정)
+import NotificationModal from '../components/NotificationModal'; //알림 모달 추가
 
 function PostDetail() {
     const { id } = useParams();
@@ -15,6 +16,12 @@ function PostDetail() {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingPost, setEditingPost] = useState(null);
+    const [modal, setModal] = useState({
+        isOpen: false, //모달 열림/닫힘 상태
+        title: '',
+        message: '',
+        onConfirm: null
+    })
 
     //로그인한 유저 이름 가져오기
     const token = localStorage.getItem('token');
@@ -113,17 +120,50 @@ function PostDetail() {
         setEditingPost(null);
     };
 
-    const handleDelete = async () => {
-        if(window.confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
-            try{
-                await deletePost(id);
-                alert("게시글이 삭제되었습니다.");
-                navigate('/'); //삭제 후 홈으로 이동
-            } catch (error) {
-                console.error("게시글 삭제에 실패했습니다.", error);
-                alert("게시글 삭제에 실패했습니다.");
-            }
-        }
+    // const handleDelete = async () => {
+    //     if(window.confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
+    //         try{
+    //             await deletePost(id);
+    //             alert("게시글이 삭제되었습니다.");
+    //             navigate('/'); //삭제 후 홈으로 이동
+    //         } catch (error) {
+    //             console.error("게시글 삭제에 실패했습니다.", error);
+    //             alert("게시글 삭제에 실패했습니다.");
+    //         }
+    //     }
+    // };
+    const handleDelete = () => {
+        setModal({
+            isOpen: true,
+            title: '게시글 삭제',
+            message: '정말로 이 게시글을 삭제하시겠습니까?',
+            onConfirm: async () => {
+                try {
+                    await deletePost(id);
+                    // alert("게시글이 삭제되었습니다.");
+                    setModal({
+                        isOpen: true,
+                        title: '삭제',
+                        message: '게시글이 삭제되었습니다.',
+                        onConfirm: null,
+                        onClose: () => {
+                            setModal({ isOpen: false});
+                            navigate('/');
+                        }
+                    });
+                } catch (error) {
+                    console.error("게시글 삭제에 실패했습니다.", error);
+                    setModal({
+                        isOpen: true,
+                        title: '오류',
+                        message: '게시글 삭제에 실패했습니다.',
+                        onConfirm: null,
+                        onClose: () => setModal({ isOpen: false})
+                    });
+                }
+            },
+            onClose: () => setModal({ isOpen: false})
+        });
     };
 
     if (!post) return <p>로딩 중...</p>;
@@ -202,6 +242,13 @@ function PostDetail() {
                 onClose={handleCloseModal}
                 onSave={handleSave}
                 post={editingPost}
+            />
+            <NotificationModal
+                isOpen={modal.isOpen}
+                title={modal.title}
+                message={modal.message}
+                onConfirm={modal.onConfirm}
+                onClose={modal.onClose || (() => setModal({ isOpen: false}))}
             />
         </div>
     )

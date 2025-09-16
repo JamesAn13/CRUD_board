@@ -36,6 +36,7 @@ function Register() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        className="input"
                     />
                 </div>
                 <div>
@@ -45,9 +46,10 @@ function Register() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="input"
                     />
                 </div>
-                <button type="submit">가입하기</button>
+                <button type="submit" className="button">가입하기</button>
             </form>
             {message && <p className="auth-message">{message}</p>}
             <p className="auth-switch-link">

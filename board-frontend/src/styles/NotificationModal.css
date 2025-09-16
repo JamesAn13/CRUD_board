@@ -1,0 +1,71 @@
+/* src/styles/NotificationModal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button-confirm {
+  background-color: #dc3545; /* 삭제 등 위험한 작업에 어울리는 색 */
+  color: white;
+}
+
+.button-confirm:hover {
+  background-color: #c82333;
+}
+
+.button-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.button-cancel:hover {
+  background-color: #e0e0e0;
+}

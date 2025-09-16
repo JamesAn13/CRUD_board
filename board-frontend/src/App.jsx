@@ -4,6 +4,8 @@ import PostDetail from './pages/PostDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Tournaments from './pages/Tournaments';
+import NotificationPanel from './components/NotificationPanel';
 import './styles/App.css';
 
 function App() {
@@ -21,18 +23,24 @@ function App() {
     <div className="container">
       {/* <h1 className="title">CRUD</h1> */}
       <nav>
-        <Link to="/">홈</Link>
-        {token ? (
-          <>
-            <Link to="/profile">내 프로필</Link>
-            <button onClick={handleLogout}>로그아웃</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">로그인</Link>
-            <Link to="/register">회원가입</Link>
-          </>
-        )}
+        <div className="nav-left">
+          <Link to="/">홈</Link>
+          <Link to="/tournaments">대회</Link>
+        </div>
+        <div className="nav-right">
+          {token ? (
+            <>
+              <Link to="/profile">내 프로필</Link>
+              <NotificationPanel />
+              <button onClick={handleLogout}>로그아웃</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">로그인</Link>
+              <Link to="/register">회원가입</Link>
+            </>
+          )}
+        </div>
       </nav>
       <Routes>
         <Route path="/" element={<PostList />} />
@@ -40,6 +48,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/tournaments" element={<Tournaments />} />
       </Routes>
     </div>
   );

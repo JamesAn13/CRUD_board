@@ -4,6 +4,9 @@ import cors from 'cors';
 import authRoutes from './routes/auth.js';
 import postRoutes from './routes/posts.js';
 import commentRoutes from './routes/comments.js';
+import tournamentRoutes from './routes/tournaments.js';
+import notificationRoutes from './routes/notification.js';
+
 
 const app = express(); //웹 서버의 본체 생성 - express의 모든 기능 사용 가능
 
@@ -15,6 +18,8 @@ app.use(express.json()); //json 형태의 요청 처리 가능
 app.use('/api', authRoutes); //인증 관련 라우트
 app.use('/api/posts', postRoutes); //게시글 관련 라우트
 app.use('/api/posts/:postId/comments', commentRoutes); //댓글 관련 라우트
+app.use('/api/tournaments', tournamentRoutes); //대회 관련 라우트
+app.use('/api/notifications', notificationRoutes); //알림 관련 라우트
 
 
 //서버 실행

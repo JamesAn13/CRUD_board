@@ -15,10 +15,14 @@ nav a {
   font-weight: 500;
   color: var(--text-color);
   margin-left: 1rem;
+  padding: 0.5rem 0.8rem; /* Add padding for better click area */
+  border-radius: 4px; /* Slightly rounded corners */
+  transition: background-color 0.2s, color 0.2s; /* Smooth transition for hover */
 }
 
 nav a:hover {
   color: var(--primary-color);
+  background-color: rgba(52, 152, 219, 0.1); /* Light background on hover */
 }
 
 nav button {
@@ -28,10 +32,14 @@ nav button {
   cursor: pointer;
   font-size: 1rem;
   margin-left: 1rem;
+  padding: 0.5rem 0.8rem; /* Add padding for better click area */
+  border-radius: 4px; /* Slightly rounded corners */
+  transition: background-color 0.2s, color 0.2s; /* Smooth transition for hover */
 }
 
 nav button:hover {
   color: var(--primary-color);
+  background-color: rgba(52, 152, 219, 0.1); /* Light background on hover */
 }
 
 /* --- 기본 레이아웃 --- */
@@ -42,6 +50,26 @@ nav button:hover {
   background-color: var(--container-bg-color);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container, .post-detail {
+    margin: 20px auto; /* Reduce top/bottom margin */
+    padding: 15px; /* Reduce padding */
+    max-width: 95%; /* Allow it to take more width on smaller screens */
+  }
+
+  nav {
+    flex-direction: column; /* Stack nav items vertically */
+    padding: 1rem; /* Adjust padding */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  nav a, nav button {
+    margin: 0.5rem 0; /* Add vertical margin between nav items */
+    margin-left: 0; /* Remove left margin */
+  }
 }
 
 .title {
@@ -61,12 +89,13 @@ hr {
 .form, .comment-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px; /* Consistent gap with auth-form */
   margin-bottom: 30px;
-  padding: 20px;
-  background-color: #fdfdfd;
-  border: 1px solid #e9e9e9;
-  border-radius: 8px;
+  padding: 25px; /* Increased padding */
+  background-color: var(--container-bg-color); /* Use container background for forms */
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* Consistent with auth-form */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Consistent with auth-container */
 }
 
 .comment-form h4 {
@@ -77,18 +106,19 @@ hr {
 
 .input, .textarea {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px; /* Reverted padding */
+  border: 1px solid var(--border-color); /* Use border color variable */
+  border-radius: 6px; /* Reverted border-radius */
   box-sizing: border-box;
   font-size: 16px;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #fdfdfd; /* Slightly off-white background for inputs */
 }
 
 .input:focus, .textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  border-color: var(--primary-color); /* Primary color for focus border */
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2); /* Reverted focus shadow */
 }
 
 .textarea {
@@ -97,20 +127,73 @@ hr {
 }
 
 .button {
-  padding: 12px 20px;
+  padding: 12px 20px; /* Reverted padding */
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 6px; /* Reverted border-radius */
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.1s; /* Add transform for subtle press effect */
   align-self: flex-end; /* 버튼을 오른쪽으로 정렬 */
 }
 
 .button:hover {
   background-color: var(--primary-hover-color);
+}
+
+.button:active {
+  transform: translateY(1px); /* Subtle press effect */
+}
+
+.comment-form h4 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 12px; /* Reverted padding */
+  border: 1px solid var(--border-color); /* Use border color variable */
+  border-radius: 6px; /* Reverted border-radius */
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #fdfdfd; /* Slightly off-white background for inputs */
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--primary-color); /* Primary color for focus border */
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2); /* Reverted focus shadow */
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.button {
+  padding: 12px 20px; /* Reverted padding */
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px; /* Reverted border-radius */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s; /* Add transform for subtle press effect */
+  align-self: flex-end; /* 버튼을 오른쪽으로 정렬 */
+}
+
+.button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.button:active {
+  transform: translateY(1px); /* Subtle press effect */
 }
 
 /* --- 게시글 목록 --- */
@@ -124,30 +207,41 @@ hr {
   background-color: var(--container-bg-color);
   padding: 20px;
   margin-bottom: 15px;
-  border: 1px solid #e9e9e9;
+  border: 1px solid var(--border-color); /* Use variable for border */
   border-radius: 8px;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s; /* Add transform for subtle lift */
+  cursor: pointer; /* Indicate clickable */
 }
 
 .post-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* More prominent shadow on hover */
+  transform: translateY(-3px); /* Subtle lift effect */
 }
 
 .post-item strong {
   font-size: 20px;
   color: var(--text-color);
   margin-right: 10px;
+  display: block; /* Make title block level */
+  margin-bottom: 5px; /* Space below title */
 }
 
 .post-item span {
   color: var(--secondary-text-color);
   font-size: 14px;
+  display: block; /* Make date block level */
+  margin-bottom: 10px; /* Space below date */
 }
 
 .post-item p {
   margin-top: 10px;
   color: var(--text-color);
   line-height: 1.6;
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis for overflow */
+  display: -webkit-box; /* For multi-line ellipsis */
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
 }
 
 .post-item a, .post-item button {
@@ -155,19 +249,22 @@ hr {
   margin-right: 10px;
   text-decoration: none;
   font-size: 14px;
+  display: inline-block; /* Ensure they are inline-block for spacing */
 }
 
 .post-item button {
   background: none;
-  border: 1px solid #ccc;
-  color: #555;
+  border: 1px solid var(--border-color); /* Use variable for border */
+  color: var(--secondary-text-color); /* Use variable for color */
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s, color 0.2s; /* Smooth transition */
 }
 
 .post-item button:hover {
-  background-color: #f0f0f0;
+  background-color: var(--primary-color); /* Primary color on hover */
+  color: white; /* White text on hover */
 }
 
 /* --- 게시글 상세 --- */
@@ -179,6 +276,8 @@ hr {
 
 .post-detail > p {
   margin-bottom: 15px;
+  color: var(--secondary-text-color); /* Date/author color */
+  font-size: 0.95rem;
 }
 
 .post-content-detail {
@@ -186,12 +285,17 @@ hr {
   line-height: 1.7;
   color: var(--text-color);
   min-height: 150px;
+  padding: 20px 0; /* Add padding for content */
+  border-top: 1px solid var(--border-color); /* Separator for content */
+  border-bottom: 1px solid var(--border-color); /* Separator for content */
+  margin-bottom: 20px;
 }
 
 /* --- 댓글 --- */
 .comments-section h3, .comment-form h4 {
   color: var(--text-color);
   margin-bottom: 20px;
+  font-size: 1.8rem; /* Larger heading for comments */
 }
 
 .comment-list {
@@ -201,7 +305,8 @@ hr {
 
 .comment-item {
   padding: 15px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-color); /* Use variable for border */
+  background-color: var(--container-bg-color); /* Consistent background */
 }
 
 .comment-item:first-child {
@@ -211,15 +316,64 @@ hr {
 .comment-item strong {
   font-size: 15px;
   color: var(--text-color);
+  margin-bottom: 5px; /* Space below author */
+  display: block;
 }
 
 .comment-item p {
   margin: 5px 0;
+  line-height: 1.5;
 }
 
 .comment-date {
   font-size: 12px;
   color: var(--secondary-text-color);
+  margin-top: 5px;
+}
+
+/* --- 게시글 상세 페이지의 액션 버튼 --- */
+.post-actions {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Align buttons to the right */
+}
+
+.post-actions button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--secondary-text-color); /* Default button color */
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.2s, transform 0.1s; /* Add transform for subtle press effect */
+}
+
+.post-actions button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px); /* Subtle lift on hover */
+}
+
+.post-actions button:active {
+    transform: translateY(1px); /* Subtle press effect */
+}
+
+.post-actions button.button-delete {
+    background-color: var(--error-color); /* Use error color for delete */
+    color: white;
+}
+
+.post-actions button.button-delete:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+.post-actions button.button-edit {
+    background-color: var(--primary-color); /* Primary color for edit */
+}
+
+.post-actions button.button-edit:hover {
+    background-color: var(--primary-hover-color); /* Darker primary on hover */
 }
 
 /* --- 프로필 페이지의 '내가 쓴 글' --- */
@@ -228,10 +382,11 @@ hr {
 }
 
 .my-posts .subtitle {
-    font-size: 1.5rem;
+    font-size: 1.6rem; /* Slightly larger subtitle */
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid var(--border-color); /* Use variable for border */
+    color: var(--text-color); /* Ensure text color is consistent */
 }
 
 .my-posts ul {
@@ -243,54 +398,33 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color 0.2s;
+    padding: 15px 20px; /* Add horizontal padding */
+    border-bottom: 1px solid var(--border-color); /* Use variable for border */
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s; /* Add box-shadow and transform */
+    border-radius: 8px; /* Add border-radius */
+    margin-bottom: 8px; /* Space between items */
 }
 
 .my-posts li:hover {
-    background-color: #f9f9f9;
+    background-color: var(--container-bg-color); /* Keep background consistent */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow on hover */
+    transform: translateY(-2px); /* Subtle lift */
 }
 
 .my-posts li a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-color); /* Use text color variable */
     font-weight: 500;
 }
 
 .my-posts li a:hover {
     text-decoration: underline;
+    color: var(--primary-color); /* Primary color on hover */
 }
 
 .my-posts li span {
-    color: #888;
+    color: var(--secondary-text-color); /* Use secondary text color variable */
     font-size: 0.9rem;
-}
-
-/* --- 게시글 상세 페이지의 액션 버튼 --- */
-.post-actions {
-    margin: 20px 0;
-    display: flex;
-    gap: 10px;
-}
-
-.post-actions button {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    color: #333;
-    font-size: 14px;
-}
-
-.post-actions button.button-delete {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.post-actions button:hover {
-    opacity: 0.9;
 }
 
 /* --- 프로필 페이지의 '내가 쓴 댓글' --- */
@@ -299,10 +433,11 @@ hr {
 }
 
 .my-comments .subtitle {
-    font-size: 1.5rem;
+    font-size: 1.6rem; /* Slightly larger subtitle */
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid var(--border-color); /* Use variable for border */
+    color: var(--text-color); /* Ensure text color is consistent */
 }
 
 .my-comments ul {
@@ -314,20 +449,29 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 15px 20px; /* Add horizontal padding */
+    border-bottom: 1px solid var(--border-color); /* Use variable for border */
     gap: 20px;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s; /* Add box-shadow and transform */
+    border-radius: 8px; /* Add border-radius */
+    margin-bottom: 8px; /* Space between items */
+}
+
+.my-comments li:hover {
+    background-color: var(--container-bg-color); /* Keep background consistent */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow on hover */
+    transform: translateY(-2px); /* Subtle lift */
 }
 
 .my-comments .comment-content {
     flex-grow: 1;
     font-style: italic;
-    color: #555;
+    color: var(--text-color); /* Use text color variable */
 }
 
 .my-comments .comment-post-link a {
     text-decoration: none;
-    color: #3498db;
+    color: var(--primary-color); /* Use primary color variable */
     font-size: 0.9rem;
     white-space: nowrap; /* 링크가 줄바꿈되지 않도록 */
 }
@@ -350,4 +494,10 @@ hr {
 .search-form .button {
   flex-shrink: 0; /* 버튼 크기가 줄어들지 않도록 설정 */
   align-self: auto; /* 기존 .button의 align-self: flex-end를 무시하고 flex 컨테이너의 정렬을 따름 */
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
 }

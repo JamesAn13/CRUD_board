@@ -83,5 +83,22 @@ export const login = async ( username, password) => {
 export const getMyComments = () => {
     return apiClient.get('/my-comments');
 }
+//대회 목록 가져오기, GET /api/tournaments
+export const getTournaments = () => {
+    return apiClient.get('/tournaments');
+}
+// 알림 목록 가져오기, GET /api/notifications
+export const getNotifications = async () => {
+    return apiClient.get('/notifications');
+};
+// 특정 알림 읽음 처리, PUT /api/notifications/:id/read
+export const markNotificationAsRead = (id) => {
+    return apiClient.put(`/notifications/${id}/read`);
+};
+// 모든 알림 읽음 처리, POST /api/notifications/read-all
+export const markAllNotificationsAsRead = async () => {
+    return apiClient.post('/notifications/read-all');
+}
+
 
 export default apiClient;

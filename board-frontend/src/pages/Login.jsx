@@ -37,6 +37,7 @@ function Login() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        className="input"
                     />
                 </div>
                 <div>
@@ -46,9 +47,10 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="input"
                     />
                 </div>
-                <button type="submit">로그인</button>
+                <button type="submit" className="button">로그인</button>
             </form>
             {message && <p className="auth-message">{message}</p>}
             <p className="auth-switch-link">
